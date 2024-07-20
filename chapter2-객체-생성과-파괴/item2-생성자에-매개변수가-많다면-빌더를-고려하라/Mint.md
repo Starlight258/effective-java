@@ -45,7 +45,7 @@ public class NutritionFacts {
         NutritionFacts cocaCola =  
                 new NutritionFacts(240, 8, 100, 0, 35, 27);  
     }  
-    }
+}
 ```
 - 매개변수 개수가 많아지면 클라이언트 코드를 작성하거나 읽기 어렵다.
 	- 코드를 읽을 때 각 값의 의미를 알기 어럽다.
@@ -285,7 +285,7 @@ public abstract class Pizza {
 ```
 
 - **재귀적 타입 한정**
-	- T는 Builder<T\>의 하위타입이어야한다.
+	- T는 Builder<T>의 하위타입이어야한다.
 	-  T의 정의가 T 자체를 포함하기 때문에 재귀적이다.
 - **추상 메서드 self()**
 	- 하위 클래스에서 자기 자신을 반환할 수 있다.

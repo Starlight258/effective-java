@@ -13,13 +13,13 @@ String s2 = "kim";
 ### 정적 팩터리 메서드를 사용해 불필요한 객체 생성을 피할 수 있다.
 - 생성자는 호출할 때마다 새로운 객체를 만들지만, 팩터리 메서드는 전혀 그렇지 않다.
     - `Boolean.valueOf(String)`
-  ```java
-  public final class Boolean implements java.io.Serializable,
-                                    Comparable<Boolean>
+```java
+public final class Boolean implements java.io.Serializable,
+                                  Comparable<Boolean>
 {
-// 미리 TRUE, FALSE 만듬
-public static final Boolean TRUE = new Boolean(true);
-public static final Boolean FALSE = new Boolean(false);
+    // 미리 TRUE, FALSE 만듬
+    public static final Boolean TRUE = new Boolean(true);
+    public static final Boolean FALSE = new Boolean(false);
 
     @HotSpotIntrinsicCandidate
     public static Boolean valueOf(boolean b) {
@@ -37,6 +37,7 @@ public static final Boolean FALSE = new Boolean(false);
 }
 ```
 - 가변 객체라 해도 사용 중에 변경되지 않음을 안다면 재사용할 수 있다.
+
 ```java
 public class DateRange {
     private static final Map<Integer, DateRange> cache = new HashMap<>();

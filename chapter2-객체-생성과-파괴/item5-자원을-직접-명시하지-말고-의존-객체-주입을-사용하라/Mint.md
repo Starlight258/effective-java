@@ -57,11 +57,9 @@ public class SpellChecker {
 - 팩터리(Factory) : 호출할 때마다 특정 타입의 인스턴스를 반복해서 만들어주는 객체 = 팩터리 메서드 패턴
 - **Supplier<T>** 를 파라미터로 받는 메서드
     - **한정적 와일드카드 타입** : 제네릭 타입의 상한, 하한을 지정
-```java
-`List<? extends Number>`: Number의 하위 클래스만 허용
-`List<? super Integer>`: Integer의 상위 클래스만 허용
-```
-	- 클라이언트는 자신이 명시한 타입의 하위 타입이라면 무엇이든 생성할 수 있는 팩터리를 넘길 수 있다.
+      - `List<? extends Number>`: Number의 하위 클래스만 허용
+      - `List<? super Integer>`: Integer의 상위 클래스만 허용
+      - 클라이언트는 자신이 명시한 타입의 하위 타입이라면 무엇이든 생성할 수 있는 팩터리를 넘길 수 있다.
 ```java
 public void processElements(Supplier<? extends Number> numberSupplier) {
     Number number = numberSupplier.get(); // Number의 모든 하위 클래스 넘기기 가능
