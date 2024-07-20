@@ -1,8 +1,9 @@
 #!/bin/bash
 
 # 커밋 후, 실행 권한을 부여 후 실행하기!
-# chmod +x update_repos.sh 로
-# ./update_repos.sh
+# chmod +x update_repos.sh 로 실행 권한 부여(맨 처음 한번만)
+# ./update_repos.sh 터미널에 입력하기
+# 참고: upstream은 원본 repo 주소로 등록하면 편하다.
 
 # upstream에서 최신 변경사항 가져오기
 git fetch upstream
