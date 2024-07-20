@@ -17,7 +17,7 @@ git merge upstream/main
 # upstream에 푸시
 git push upstream main
 
-# origin(포크된 저장소)에 푸시
-git push origin main
+# origin의 main 브랜치를 upstream의 main 브랜치와 동기화
+git push origin upstream/main:main
 
-echo "모든 작업이 완료되었습니다."
+echo "커밋 반영 완료"
