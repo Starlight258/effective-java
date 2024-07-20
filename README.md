@@ -1,5 +1,5 @@
 # 🔍 Effective Java Study
-"Effective Java 3/E" 책 스터디입니다.
+"Effective Java 3/E" 책 스터디
 
 ## 🗓️ 스터디 진행 방식
 
