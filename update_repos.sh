@@ -11,13 +11,13 @@ git fetch upstream
 # 로컬 main 브랜치로 전환
 git checkout main
 
-# upstream/main과 병합
-git merge upstream/main
+# upstream/main의 변경사항을 rebase
+git rebase upstream/main
 
-# upstream에 푸시
-git push upstream main
+# upstream에 push
+git push upstream main --force
 
 # origin의 main 브랜치를 upstream의 main 브랜치와 동기화
-git push origin upstream/main:main
+git push origin main --force
 
 echo "커밋 반영 완료"
