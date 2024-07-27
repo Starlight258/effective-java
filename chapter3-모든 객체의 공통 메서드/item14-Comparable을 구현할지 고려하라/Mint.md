@@ -139,9 +139,9 @@ public class ColorPoint implements Comparable<ColorPoint> {
 
 ```java
 // 자바가 제공하는 비교자를 사용해 클래스를 비교한다.  
-public int compareTo(CaseInsensitiveString cis){
-        return String.CASE_INSENSITIVE_ORDER.compare(s,cis.s);
-        }
+public int compareTo(CaseInsensitiveString cis) {  
+    return String.CASE_INSENSITIVE_ORDER.compare(s, cis.s);  
+}
 ```
 
 - **객체 참조 필드를 비교**하려면 **compareTo 메서드를 재귀적으로 호출**한다.
@@ -155,15 +155,15 @@ public int compareTo(CaseInsensitiveString cis){
 
 ```java
 // 코드 14-2 기본 타입 필드가 여럿일 때의 비교자 (91쪽)  
-public int compareTo(PhoneNumber pn){
-        int result=Short.compare(areaCode,pn.areaCode);
-        if(result==0){
-        result=Short.compare(prefix,pn.prefix);
-        if(result==0)
-        result=Short.compare(lineNum,pn.lineNum);
-        }
-        return result;
-        }
+public int compareTo(PhoneNumber pn) {  
+    int result = Short.compare(areaCode, pn.areaCode);  
+    if (result == 0)  {  
+        result = Short.compare(prefix, pn.prefix);  
+        if (result == 0)  
+            result = Short.compare(lineNum, pn.lineNum);  
+    }  
+    return result;  
+}
 ```
 
 > 위 코드는 간결하지만 성능 저하가 따른다.
@@ -177,42 +177,42 @@ public int compareTo(PhoneNumber pn){
 
 ```java
 // 코드 14-3 비교자 생성 메서드를 활용한 비교자 (92쪽)  
-private static final Comparator<PhoneNumber> COMPARATOR=
-        comparingInt((PhoneNumber pn)->pn.areaCode)
-        .thenComparingInt(pn->pn.prefix)
-        .thenComparingInt(pn->pn.lineNum);
+private static final Comparator<PhoneNumber> COMPARATOR =  
+        comparingInt((PhoneNumber pn) -> pn.areaCode)  
+                .thenComparingInt(pn -> pn.prefix)  
+                .thenComparingInt(pn -> pn.lineNum);
 ```
 
 - 객체 참조용 비교자 메서드를 이용해 비교자를 생성할 수 있다.
     - 객체 참조용 비교자 메서드
 
 ```java
-public static<T, U extends Comparable<? super U>> Comparator<T> comparing(
-        Function<? super T,?extends U>keyExtractor)
+public static <T, U extends Comparable<? super U>> Comparator<T> comparing(
+    Function<? super T, ? extends U> keyExtractor)
 ```
 
-	- 사용 예시
+- 사용 예시
 
 ```java
-Comparator<Person> nameComparator=Comparator.comparing(Person::getName);
-        Comparator<Person> ageComparator=Comparator.comparing(Person::getAge,(a,b)->b.compareTo(a)); // 역순
+Comparator<Person> nameComparator = Comparator.comparing(Person::getName);
+Comparator<Person> ageComparator = Comparator.comparing(Person::getAge, (a, b) -> b.compareTo(a)); // 역순
 ```
 
 - thenComparing
     - 이미 존재하는 비교자에 추가적인 비교 기준을 더할때 사용
 
 ```java
-  default Comparator<T> thenComparing(Comparator<? super T>other)
+  default Comparator<T> thenComparing(Comparator<? super T> other)
 ```
 
-	- 사용 에시
+- 사용 에시
 
 ```java
-Comparator<Person> fullComparator=Comparator
-        .comparing(Person::getLastName)
-        .thenComparing(Person::getFirstName)
-        .thenComparing(Person::getAge)
-        .thenComparing(Person::getHeight,(h1,h2)->Double.compare(h2,h1)); // 키 역순
+Comparator<Person> fullComparator = Comparator
+    .comparing(Person::getLastName)
+    .thenComparing(Person::getFirstName)
+    .thenComparing(Person::getAge)
+    .thenComparing(Person::getHeight, (h1, h2) -> Double.compare(h2, h1)); // 키 역순
 ```
 
 ### 값의 차를 기준으로 비교할 때 -를 사용하지 말자.
@@ -222,20 +222,19 @@ Comparator<Person> fullComparator=Comparator
 
 ```java
 // 코드 14-5 정적 compare 메서드를 활용한 비교자
-static Comparator<Object> hashCodeOrder=new Comparator<>(){
-public int compare(Object o1,Object o2){
-        return Integer.compare(o1.hashCode(),o2.hashCode());
-        }
-        };
+static Comparator<Object> hashCodeOrder = new Comparator<>() {
+    public int compare(Object o1, Object o2) {
+        return Integer.compare(o1.hashCode(), o2.hashCode());
+    }
+};
 ```
 
 - 비교자 생성 메서드를 활용한 비교자를 사용하자.
 
 ```java
 // 코드 14-6 비교자 생성 메서드를 활용한 비교자
-static Comparator<Object> hashCodeOrder=
-        Comparator.comparingInt(o->o.hashCode());
-
+static Comparator<Object> hashCodeOrder = 
+    Comparator.comparingInt(o -> o.hashCode());
 ```
 
 ### 결론

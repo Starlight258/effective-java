@@ -16,12 +16,12 @@
 ## 좋은 hashCode를 작성하는 요령
 
 ```java
-@Override public int hashCode(){
-        int result=Short.hashCode(areaCode);
-        result=31*result+Short.hashCode(prefix);
-        result=31*result+Short.hashCode(lineNum);
-        return result;
-        }
+@Override public int hashCode() {  
+    int result = Short.hashCode(areaCode);  
+    result = 31 * result + Short.hashCode(prefix);  
+    result = 31 * result + Short.hashCode(lineNum);  
+    return result;  
+}
 ```
 
 1. int 변수 result를 선언한 후 값 c로 초기화한다. 이때 c는 해당 객체의 첫번째 핵심 필드를 단계 2.a 방식으로 계산한 해시코드다.
@@ -43,9 +43,9 @@
 
 ```java
 // 코드 11-3 한 줄짜리 hashCode 메서드 - 성능이 살짝 아쉽다. (71쪽)  
-@Override public int hashCode(){
-        return Objects.hash(lineNum,prefix,areaCode);
-        }
+@Override public int hashCode() {  
+    return Objects.hash(lineNum, prefix, areaCode);  
+}
 ```
 
 ### 클래스가 불변이고 해시코드 계산하는 비용이 크다면, 캐싱하는 방식을 고려해야한다.
@@ -56,17 +56,17 @@
 ```java
 // 해시코드를 지연 초기화하는 hashCode 메서드 - 스레드 안정성까지 고려해야 한다. (71쪽)  
 private int hashCode; // 자동으로 0으로 초기화된다.  
-
-@Override public int hashCode(){
-        int result=hashCode;
-        if(result==0){
-        result=Short.hashCode(areaCode);
-        result=31*result+Short.hashCode(prefix);
-        result=31*result+Short.hashCode(lineNum);
-        hashCode=result;
-        }
-        return result;
-        }
+  
+@Override public int hashCode() {  
+    int result = hashCode;  
+    if (result == 0) {  
+        result = Short.hashCode(areaCode);  
+        result = 31 * result + Short.hashCode(prefix);  
+        result = 31 * result + Short.hashCode(lineNum);  
+        hashCode = result;  
+    }  
+    return result;  
+}
 ```
 
 ### 주의사항

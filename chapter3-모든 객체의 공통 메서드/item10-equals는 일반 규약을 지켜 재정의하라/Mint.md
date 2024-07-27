@@ -91,12 +91,12 @@ cis.equals(s)는 true를 반환하지만, 일반 문자열인 s의 equals()를 �
 
 - 대칭성을 지킨 equals()
 
-```java
+```
  // 수정한 equals 메서드 (56쪽)  
-@Override public boolean equals(Object o){
-        return o instanceof CaseInsensitiveString&&
-        ((CaseInsensitiveString)o).s.equalsIgnoreCase(s);
-        }
+@Override public boolean equals(Object o) {  
+    return o instanceof CaseInsensitiveString &&  
+            ((CaseInsensitiveString) o).s.equalsIgnoreCase(s);  
+}
 ```
 
 > CaseInsensitiveString과 같은 클래스의 인스턴스인지 확인한다.
@@ -177,27 +177,27 @@ cp.equals(p)에서 Point 클래스인 p는 ColorPoint의 인스턴스가 아니�
 
 ```java
 // 코드 10-3 잘못된 코드 - 추이성 위배! (57쪽)  
-@Override public boolean equals(Object o){
-        if(!(o instanceof Point))
-        return false;
+@Override public boolean equals(Object o) {  
+    if (!(o instanceof Point))  
+        return false;  
+  
+    // o가 일반 Point면 색상을 무시하고 비교한다.  
+    if (!(o instanceof ColorPoint))  
+        return o.equals(this);  
+  
+    // o가 ColorPoint면 색상까지 비교한다.  
+    return super.equals(o) && ((ColorPoint) o).color == color;  
+}
 
-        // o가 일반 Point면 색상을 무시하고 비교한다.  
-        if(!(o instanceof ColorPoint))
-        return o.equals(this);
-
-        // o가 ColorPoint면 색상까지 비교한다.  
-        return super.equals(o)&&((ColorPoint)o).color==color;
-        }
-
-public static void main(String[]args){
+    public static void main(String[] args) {  
         // 두 번째 equals 메서드(코드 10-3)는 추이성을 위배한다. (57쪽)  
-        ColorPoint p1=new ColorPoint(1,2,Color.RED);
-        Point p2=new Point(1,2);
-        ColorPoint p3=new ColorPoint(1,2,Color.BLUE);
-        System.out.printf("%s %s %s%n",
-        p1.equals(p2),p2.equals(p3),p1.equals(p3));
-        }
-        }
+        ColorPoint p1 = new ColorPoint(1, 2, Color.RED);  
+        Point p2 = new Point(1, 2);  
+        ColorPoint p3 = new ColorPoint(1, 2, Color.BLUE);  
+        System.out.printf("%s %s %s%n",  
+                          p1.equals(p2), p2.equals(p3), p1.equals(p3));  
+    }  
+}
 ```
 
 대칭성은 지켜주지만, 추이성을 깬다. (p1과 p2는 같고, p2는 p3와 같지만 p1과 p3는 다르다.)
@@ -206,8 +206,8 @@ public static void main(String[]args){
   SmellPoint가 Point의 하위 클래스라고 가정할때,
 
 ```java
-ColorPoint cp1=new ColorPoint(1,2,Color.RED);
-        SmellPoint sp=new SmellPoint(1,2,"sweet");
+ColorPoint cp1 = new ColorPoint(1, 2, Color.RED);
+SmellPoint sp = new SmellPoint(1, 2, "sweet");
 ```
 
 1. ColorPoint의 equals가 호출되어 SmellPoint의 equals를 호출
@@ -221,12 +221,12 @@ ColorPoint cp1=new ColorPoint(1,2,Color.RED);
 
 ```java
 // 잘못된 코드 - 리스코프 치환 원칙 위배! (59쪽)  
-@Override public boolean equals(Object o){
-        if(o==null||o.getClass()!=getClass())
-        return false;
-        Point p=(Point)o;
-        return p.x==x&&p.y==y;
-        }
+@Override public boolean equals(Object o) {  
+    if (o == null || o.getClass() != getClass())  
+        return false;  
+    Point p = (Point) o;  
+    return p.x == x && p.y == y;  
+}
 ```
 
 상위 클래스의 Point를 instanceof가 아닌 getClass로 변경할 경우 같은 구현 클래스의 객체와 비교할 때만 true를 반환한다.

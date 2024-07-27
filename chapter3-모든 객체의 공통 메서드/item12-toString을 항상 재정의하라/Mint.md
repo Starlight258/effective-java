@@ -10,10 +10,10 @@
 - toString을 잘 구현한 클래스는 사용하기에 훨씬 즐겁고, 그 클래스를 사용한 시스템은 디버깅하기 쉽다.
 
 ```java
-public static void main(String[]args){
-        PhoneNumber jenny=new PhoneNumber(707,867,5309);
-        System.out.println("제니의 번호: "+jenny);
-        }
+public static void main(String[] args) {  
+    PhoneNumber jenny = new PhoneNumber(707, 867, 5309);  
+    System.out.println("제니의 번호: " + jenny);  
+}
 ```
 
 단순히 객체를 출력하기만 해도 객체에 대한 정보를 알 수 있다.
@@ -28,7 +28,7 @@ public static void main(String[]args){
     - 포맷을 명시하기로 했다면, 명시한 포맷에 맞는 문자열과 객체를 상호 전환할 수 있는 **정적 팩터리나 생성자를 함께 제공**하면 좋다.
 
 ```java
-/**
+/**  
  * 이 전화번호의 문자열 표현을 반환한다.  
  * 이 문자열은 "XXX-YYY-ZZZZ" 형태의 12글자로 구성된다.  
  * XXX는 지역 코드, YYY는 프리픽스, ZZZZ는 가입자 번호다.  
@@ -37,36 +37,36 @@ public static void main(String[]args){
  * 앞에서부터 0으로 채워나간다. 예컨대 가입자 번호가 123이라면  
  * 전화번호의 마지막 네 문자는 "0123"이 된다.  
  */
-@Override public String toString(){
-        return String.format("%03d-%03d-%04d",
-        areaCode,prefix,lineNum);
-        }
+ @Override public String toString() {  
+    return String.format("%03d-%03d-%04d",  
+            areaCode, prefix, lineNum);  
+}
 
 // 정적 팩토리 예시
-/**
- * 지정된 문자열 표현에 해당하는 PhoneNumber 인스턴스를 반환합니다.
- * 문자열은 toString() 메서드에 명시된 형식이어야 합니다.
- *
- * @param phoneNumberString 전화번호의 문자열 표현
- * @return 해당 전화번호를 나타내는 PhoneNumber 인스턴스
- * @throws IllegalArgumentException 문자열이 올바른 형식이 아니면 발생
- */
-public static PhoneNumber parse(String phoneNumberString){
-        String[]parts=phoneNumberString.split("-");
-        if(parts.length!=3){
-        throw new IllegalArgumentException("잘못된 전화번호 형식: "+phoneNumberString);
+    /**
+     * 지정된 문자열 표현에 해당하는 PhoneNumber 인스턴스를 반환합니다.
+     * 문자열은 toString() 메서드에 명시된 형식이어야 합니다.
+     *
+     * @param phoneNumberString 전화번호의 문자열 표현
+     * @return 해당 전화번호를 나타내는 PhoneNumber 인스턴스
+     * @throws IllegalArgumentException 문자열이 올바른 형식이 아니면 발생
+     */
+    public static PhoneNumber parse(String phoneNumberString) {
+        String[] parts = phoneNumberString.split("-");
+        if (parts.length != 3) {
+            throw new IllegalArgumentException("잘못된 전화번호 형식: " + phoneNumberString);
         }
-        try{
-        int areaCode=Integer.parseInt(parts[0]);
-        int prefix=Integer.parseInt(parts[1]);
-        int lineNumber=Integer.parseInt(parts[2]);
-        return new PhoneNumber(areaCode,prefix,lineNumber);
-        }catch(NumberFormatException e){
-        throw new IllegalArgumentException("잘못된 전화번호 형식: "+phoneNumberString);
+        try {
+            int areaCode = Integer.parseInt(parts[0]);
+            int prefix = Integer.parseInt(parts[1]);
+            int lineNumber = Integer.parseInt(parts[2]);
+            return new PhoneNumber(areaCode, prefix, lineNumber);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("잘못된 전화번호 형식: " + phoneNumberString);
         }
-        }
-        // equals와 hashCode 메서드 생략
-        }
+    }
+    // equals와 hashCode 메서드 생략
+}
 ```
 
 ### 포맷 명시 여부와 상관없이, toString이 반환한 값에 포함된 정보를 얻어올 수 있는 api를 제공하자.

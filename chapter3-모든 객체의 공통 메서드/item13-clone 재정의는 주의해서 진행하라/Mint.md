@@ -76,13 +76,13 @@ class Child extends Parent {
 
 ```java
 // 코드 13-1 가변 상태를 참조하지 않는 클래스용 clone 메서드 (79쪽)  
-@Override public PhoneNumber clone(){
-        try{
-        return(PhoneNumber)super.clone();
-        }catch(CloneNotSupportedException e){
+@Override public PhoneNumber clone() {  
+    try {  
+        return (PhoneNumber) super.clone();  
+    } catch (CloneNotSupportedException e) {  
         throw new AssertionError();  // 일어날 수 없는 일이다.  
-        }
-        }
+    }  
+}
 ```
 
 - 공변 반환 타이핑 : 재정의한 메서드의 반환 타입은 상위 클래스의 메서드가 반환하는 타입의 하위 타입일 수 있다.
@@ -139,28 +139,28 @@ public class Stack implements Cloneable {
 
 ```java
 // 코드 13-2 가변 상태를 참조하는 클래스용 clone 메서드  
-@Override public Stack clone(){
-        try{
-        Stack result=(Stack)super.clone();
-        result.elements=elements.clone();
-        return result;
-        }catch(CloneNotSupportedException e){
-        throw new AssertionError();
-        }
-        }
-
+@Override public Stack clone() {  
+	try {  
+		Stack result = (Stack) super.clone();  
+		result.elements = elements.clone();  
+		return result;  
+	} catch (CloneNotSupportedException e) {  
+		throw new AssertionError();  
+	}  
+}  
+  
 // clone이 동작하는 모습을 보려면 명령줄 인수를 몇 개 덧붙여서 호출해야 한다.  
-public static void main(String[]args){
-        Stack stack=new Stack();
-        for(String arg:args)
-        stack.push(arg);
-        Stack copy=stack.clone();
-        while(!stack.isEmpty())
-        System.out.print(stack.pop()+" ");
-        System.out.println();
-        while(!copy.isEmpty())
-        System.out.print(copy.pop()+" ");
-        }  
+public static void main(String[] args) {  
+	Stack stack = new Stack();  
+	for (String arg : args)  
+		stack.push(arg);  
+	Stack copy = stack.clone();  
+	while (!stack.isEmpty())  
+		System.out.print(stack.pop() + " ");  
+	System.out.println();  
+	while (!copy.isEmpty())  
+		System.out.print(copy.pop() + " ");  
+}  
 ```
 
 > 배열을 복제할 때는 배열의 clone 메서드를 사용하라고 권장한다.(clone 기능을 사용하는 유일한 예시)
@@ -258,9 +258,9 @@ private static class Entry {
 - 하위 클래스에서 재정의하지 못하도록 막을 수 있다.
 
 ```java
-@Override public Object clone()throws CloneNotSupportedException{
-        throw new CloneNotSupportedException();
-        }
+@Override public Object clone() throws CloneNotSupportedException {  
+    throw new CloneNotSupportedException();
+}
 ```
 
 > 또는 구현 여부를 하위 클래스에서 선택할 수 있도록 할 수 있다.
