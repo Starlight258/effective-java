@@ -119,9 +119,9 @@ BigInteger a = BigInteger.valueOf(10);
 BigInteger b = BigInteger.valueOf(10);
 System.out.println(a == b);  // true
 ```
-Integer는 -128~127 사이의 정수는 캐시되어 재사용된다.
+Integer는 -128\~127 사이의 정수는 캐시되어 재사용된다.
 Boolean은 true, false값은 항상 같은 인스턴스를 반환한다.
-BigInteger는 자주 사용되는 작은 값들(-16~16)을 캐시한다.
+BigInteger는 자주 사용되는 작은 값들(-16\~16)을 캐시한다.
 
 > 새로운 클래스를 설계할때 public 생성자 대신 정적 팩토리 메서드를 만들어 두면, 필요에 따라 캐싱 기능을 덧붙일 수 있어 좋다.
 
