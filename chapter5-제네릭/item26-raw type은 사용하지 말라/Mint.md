@@ -96,14 +96,14 @@ List<Object> objectList = new ArrayList<String>();  // 컴파일 오류
 - 타입 계층 구조가 보존된다.
 - 배열은 공변성을 가진다.
 
-   ```java
+```java
 String[] strings = {"a", "b", "c"};
 Object[] objects = strings;  // 허용됨 (공변성)
-   ```
+```
 런타임 에러 가능
-   ```java
+```java
 objects[0] = 1;  // 런타임 ArrayStoreException
-   ```
+```
 
 #### 불공변성 (Invariance):
 - A가 B의 하위 타입이어도`, T<A>`와 `T<B>` 사이에는 **상속 관계가 없다.**
