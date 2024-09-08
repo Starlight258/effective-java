@@ -33,12 +33,12 @@ public List<Cheese> getCheeses(){
 }
 ```
 
-### null 말고 길이가 0인 배열을 반환하자 (빈 배열 사용)
+### 빈 배열 사용: null 말고 길이가 0인 배열을 반환하자
 ```java
 private static final Cheese[] EMPTY_CHEESE_ARRAY = new Cheese[0];
 
 public List<Cheese> getCheeses(){
-	return cheesesInStock.toArray(EMPTY_CHEESE_ARRAY);
+	return cheesesInStock.toArray(EMPTY_CHEESE_ARRAY);
 }
 ```
 - 항상 같은 빈 배열을 재사용한다.
@@ -46,15 +46,14 @@ public List<Cheese> getCheeses(){
 - 만약 `cheesesInStock`이 비어있다면, `EMPTY_CHEESE_ARRAY`가 그대로 반환된다.
 - `cheesesInStock`에 요소가 있다면, 그 크기에 맞는 새 배열이 생성되어 반환된다.
 
-#### 배열을 미리 할당하면 성능이 나빠진다.
+#### 배열을 미리 할당하면 성능이 나빠진다
 ```java
 public List<Cheese> getCheeses(){
-	return cheesesInStock.toArray(new Cheese[cheesesInStock.size()]);
+	return cheesesInStock.toArray(new Cheese[cheesesInStock.size()]);
 }
 ```
 - 매번 새로운 배열을 할당한다.
 - 단순히 성능 개선 목적이라면 toArray에 넘기는 배열을 미리 할당하는 것은 추천하지 않는다.
-> 오히려 성능이 떨어진다는 연구 결과도 있다.
 
 # 결론
 - `null`이 아닌, `빈 배열`이나 `컬렉션`을 반환하라
